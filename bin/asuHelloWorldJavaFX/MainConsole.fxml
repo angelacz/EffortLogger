@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Author: Angela Zhang
+
+Design: MainConsole.fxml implements the View (in the MVC model)
+for the EffortLogger mainline/main console.
+
+Design goals: By using the MVC model, the application data (model), UI (view), and logic (control)
+can be implemented separately. We also separate the different components/consoles of EffortLogger,
+since each have distinct functionalities.
+
+ -->
+ 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="asuHelloWorldJavaFX.MainConsoleViewController">
+   <children>
+      <Text layoutX="221.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EffortLogger">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Text>
+      <Button layoutX="21.0" layoutY="353.0" mnemonicParsing="false" text="Effort Console" onAction="#goToEffortConsole" />
+      <Button layoutX="136.0" layoutY="353.0" mnemonicParsing="false" text="Defect Console" onAction="#goToEffortConsole" />
+      <Button layoutX="257.0" layoutY="353.0" mnemonicParsing="false" text="Effort Log Editor" onAction="#goToEffortConsole" />
+      <Button layoutX="379.0" layoutY="353.0" mnemonicParsing="false" text="Log Console" onAction="#goToLogConsole" />
+      <Button layoutX="484.0" layoutY="353.0" mnemonicParsing="false" text="Definitions" onAction="#goToDefinitionsConsole" />
+   </children>
+</AnchorPane>
