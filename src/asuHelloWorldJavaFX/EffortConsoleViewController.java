@@ -9,27 +9,23 @@
  * 
  */
 
-
 package asuHelloWorldJavaFX;
+
+import asuHelloWorldJavaFX.Definitions;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.beans.binding.Bindings;
-import javafx.beans.value.ObservableValue;
+import javafx.scene.paint.Color;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 public class EffortConsoleViewController {
 	private EffortLog log = new EffortLog();
 	
-	private boolean isClockStarted = false;
-	
-	String[] projectList = {"Project 1", "Project 2"};
-	String[] LCstepList = {"Lifecycle step 1", "Lifecycle step 2"};
-	String[] effortCategoryList = {"Effort Category: Tasks", "Effort Category: Defects"};
-	String[] deliverableList = {"Task Deliverable", "Defect Category"};
+	private BooleanProperty isClockStarted = new SimpleBooleanProperty(false);
 	
 	@FXML
 	private Label clockLabel;
@@ -52,97 +48,85 @@ public class EffortConsoleViewController {
 	@FXML
 	private TextArea userStoryTextArea;
 	
-	
 	@FXML
 	private void initialize() {
+		// initialize definitions
+		Definitions.initializeClassVariables();
+		
 		// set menu options for log attributes
-		projectChoiceBox.setItems(FXCollections.observableArrayList(projectList));
-		LCstepChoiceBox.setItems(FXCollections.observableArrayList(LCstepList));
-		effortCategoryChoiceBox.setItems(FXCollections.observableArrayList(effortCategoryList));
-		deliverableChoiceBox.setItems(FXCollections.observableArrayList(deliverableList));
+		projectChoiceBox.setItems(FXCollections.observableArrayList(Definitions.projectNames));
+		LCstepChoiceBox.setItems(FXCollections.observableArrayList(Definitions.LCstepNames));
+		effortCategoryChoiceBox.setItems(FXCollections.observableArrayList(Definitions.effortCategoryNames));
+		deliverableChoiceBox.setItems(FXCollections.observableArrayList(Definitions.effortCategoryChoiceNames));
 		
-		// set listeners for log attributes
-		projectChoiceBox.getSelectionModel().selectedIndexProperty().addListener(
-		         (ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
-		        	log.setProjectName(projectList[new_val.intValue()]);
-		            });
+		// TODO: set listeners or binding (to menu, based on selected options in other menus) for menu options
 		
-		LCstepChoiceBox.getSelectionModel().selectedIndexProperty().addListener(
-		         (ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
-		        	 log.setLCStep(LCstepList[new_val.intValue()]);
-		            });
-		
-		effortCategoryChoiceBox.getSelectionModel().selectedIndexProperty().addListener(
-		         (ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
-		        	 log.setEffortCategory(effortCategoryList[new_val.intValue()]);
-		            });
-		
-		deliverableChoiceBox.getSelectionModel().selectedIndexProperty().addListener(
-		         (ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
-		        	 log.setDeliverable(deliverableList[new_val.intValue()]);
-		            });
-		
-		// create bindings for labels
-//		clockLabel.textProperty().bind(Bindings.createStringBinding(() -> {
-//		    String s = " ";
-//		    if (isClockStarted)
-//		        s = "Clock is started";
-//		     else
-//		        s = "Clock is stopped";
-//
-//		    return s;
-//		}));
-		
+		isClockStarted.addListener((observable, oldValue, newValue) -> {
+			if (newValue) {
+				clockLabel.setText("Clock is started");
+				clockLabel.setTextFill(Color.GREEN);
+			}
+			else {
+				clockLabel.setText("Clock is stopped");
+				clockLabel.setTextFill(Color.RED);
+			}
+		});
 	}
 	
 	public void startTask() {
-		isClockStarted = true;
-		log.setStartTime(System.currentTimeMillis());
+		isClockStarted.setValue(true);
+		log.setStartDate();
 	}
 	
 	public void endTask() {
 		// check for incorrect/incomplete input
-		if (!isClockStarted) {
+		if (!isClockStarted.getValue()) {
 			System.out.println("Clock has not started yet!");
 			return;
 		}
-		else if (log.getProjectName() == null) {
+		else if (projectChoiceBox.getValue() == null) {
 			System.out.println("Please choose project name!");
 			return;
 		}
-		else if (log.getLCStep() == null) {
+		else if (LCstepChoiceBox.getValue() == null) {
 			System.out.println("Please choose LC step!");
 			return;
 		}
-		else if (log.getEffortCategory() == null) {
+		else if (effortCategoryChoiceBox.getValue() == null) {
 			System.out.println("Please choose effort category!");
 			return;
 		}
-		else if (log.getDeliverable() == null) {
+		else if (deliverableChoiceBox.getValue() == null) {
 			System.out.println("Please choose deliverable!");
 			return;
 		}
 		
-		// input correct
-	
-		// save current log
-		log.setEndTime(System.currentTimeMillis());
-		log.setElapsedTime(log.getEndTime() - log.getStartTime());
+		// set log attributes
+		log.setProjectName((String) projectChoiceBox.getValue());
+		log.setLCStep((String) LCstepChoiceBox.getValue());
+		log.setEffortCategory((String) effortCategoryChoiceBox.getValue());
+		log.setDeliverable((String) deliverableChoiceBox.getValue());
 		
 		log.setKeywords(keywordsTextArea.getText());
 		log.setUserStory(userStoryTextArea.getText());
-
+		
+		log.setEndDate();
+		log.setElapsedTime();
+		
+		// save current log
 		log.save();
 		
 		// reset log info
 		log = new EffortLog();
-		isClockStarted = false;
+		isClockStarted.setValue(false);
+		
+		projectChoiceBox.setValue(null);
+		LCstepChoiceBox.setValue(null);
+		effortCategoryChoiceBox.setValue(null);
+		deliverableChoiceBox.setValue(null);
 		
 		keywordsTextArea.clear();
 		userStoryTextArea.clear();
 		
-		
 	}
-	
-	
 }

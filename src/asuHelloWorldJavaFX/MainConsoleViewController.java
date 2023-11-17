@@ -37,39 +37,5 @@ public class MainConsoleViewController {
   		  e.printStackTrace();
   	  } 
     }
-	
-	public void goToLogConsole(ActionEvent event) {
-		
-	  	  FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LogConsole.fxml"));
-	  	  
-	  	  stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-	  	  stage.setTitle("Log Console");
-	  	  
-	  	  try {
-	  		  scene = new Scene(fxmlLoader.load(), 1000, 1000);
-	  		  stage.setScene(scene);
-	      	  stage.show();
-	  	  }
-	  	  catch (Exception e) {
-	  		  e.printStackTrace();
-	  	  } 
-	    }
-	
-	public void goToDefinitionsConsole(ActionEvent event) {
-		
-	  	  FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("DefinitionsConsole.fxml"));
-	  	  
-	  	  stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-	  	  stage.setTitle("Definitions Console");
-	  	  
-	  	  try {
-	  		  scene = new Scene(fxmlLoader.load(), 1000, 1000);
-	  		  stage.setScene(scene);
-	      	  stage.show();
-	  	  }
-	  	  catch (Exception e) {
-	  		  e.printStackTrace();
-	  	  } 
-	    }
 
 }

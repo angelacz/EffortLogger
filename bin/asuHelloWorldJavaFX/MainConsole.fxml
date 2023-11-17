@@ -27,7 +27,7 @@ since each have distinct functionalities.
       <Button layoutX="21.0" layoutY="353.0" mnemonicParsing="false" text="Effort Console" onAction="#goToEffortConsole" />
       <Button layoutX="136.0" layoutY="353.0" mnemonicParsing="false" text="Defect Console" onAction="#goToEffortConsole" />
       <Button layoutX="257.0" layoutY="353.0" mnemonicParsing="false" text="Effort Log Editor" onAction="#goToEffortConsole" />
-      <Button layoutX="379.0" layoutY="353.0" mnemonicParsing="false" text="Log Console" onAction="#goToLogConsole" />
-      <Button layoutX="484.0" layoutY="353.0" mnemonicParsing="false" text="Definitions" onAction="#goToDefinitionsConsole" />
+      <Button layoutX="379.0" layoutY="353.0" mnemonicParsing="false" text="Log Console" onAction="#goToEffortConsole" />
+      <Button layoutX="484.0" layoutY="353.0" mnemonicParsing="false" text="Definitions" onAction="#goToEffortConsole" />
    </children>
 </AnchorPane>
