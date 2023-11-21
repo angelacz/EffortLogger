@@ -1,104 +1,129 @@
 package asuHelloWorldJavaFX;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+
+// All Maps are implemented as HashMaps, all Lists are implemented as ArrayLists
 
 public class Definitions {
-	public static List<String> projectNames;
-	public static List<ArrayList<Integer>> projectLCSteps;
+	// List of project names
+	static List<String> projectNames; 
+	// Maps project name -> ordered list of lifecycle steps
+	static Map<String, ArrayList<String>> projectToLCSteps;
 	
-	public static List<String> LCstepNames;
-	public static List<ArrayList<Integer>> LCstepEffortCategories;
+	// Maps project name -> list of effort logs
+	static Map<String, ArrayList<EffortLog>> projectEffortLogs;
+	// Maps project name -> list of defect logs
+	static Map<String, ArrayList<DefectLog>> projectDefectLogs;
 	
-	public static List<String> effortCategoryNames;
-	public static List<ArrayList<String>> effortCategoryChoices;
-	public static List<String> effortCategoryChoiceNames;
+	// List of lifecycle step names
+	static List<String> LCstepNames;
+	// Maps lifecycle step -> ordered list [default effort category, default effort category choice]
+	static Map<String, ArrayList<String>> LCstepToDefaultEffortCategory;
+	
+	// List of effort category names
+	static List<String> effortCategoryNames;
+	// Maps effort category -> list of effort category choices
+	static Map<String, ArrayList<String>> effortCategoryToChoices;
+	// List of all effort category choices
+	static List<String> effortCategoryChoiceNames;
 	
 	
 	public static void initializeClassVariables() {
-		projectNames = new ArrayList<String>(
-				Arrays.asList("Business Project", "Development Project"));
+		// initialize projectNames
+		projectNames = new ArrayList<String>(Arrays.asList("Business Project", "Development Project"));
 		
-		projectLCSteps = new ArrayList<ArrayList<Integer>>();
-		projectLCSteps.add(new ArrayList<Integer> (
-				Arrays.asList(17,18,19,20,21,22,23,24,25,26)));
-		projectLCSteps.add(new ArrayList<Integer> (
-				Arrays.asList(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16)));
+		// initialize projectEffortLogs
+		projectEffortLogs = new HashMap<>();
+		projectEffortLogs.put(projectNames.get(0), new ArrayList<EffortLog>());
+		projectEffortLogs.put(projectNames.get(1), new ArrayList<EffortLog>());
 		
+		// initialize projectDefectLogs
+		projectDefectLogs = new HashMap<>();
+		projectDefectLogs.put(projectNames.get(0), new ArrayList<DefectLog>());
+		projectDefectLogs.put(projectNames.get(1), new ArrayList<DefectLog>());
+		
+		// initialize LCstepNames
 		LCstepNames = new ArrayList<String>(
 				Arrays.asList(
-						"Problem Understanding","Conceptual Design Plan","Conceptual Design Review",
-						"Detailed Design Plan","Detailed Design Prototype","Detailed Design Review",
-						"Implementation Plan","Test Case Generation",
-						"Solution Specification","Solution Review","Solution Implementation",
-						"Unit/System Test","Reflection","Repository Update",
-						
-						"Planning","Information Gathering","Information Understanding",
-						"Verifying","Outlining","Drafting","Finalizaing",
-						"Team Meeting","Coach Meeting","Stakeholder Meeting"
-						));
+					"Problem Understanding","Conceptual Design Plan","Requirements",
+					"Conceptual Design","Conceptual Design Review",
+					"Detailed Design Plan","Detailed Design Prototype","Detailed Design Review",
+					"Implementation Plan","Test Case Generation",
+					"Solution Specification","Solution Review","Solution Implementation",
+					"Unit/System Test","Reflection","Repository Update",
+					
+					"Planning","Information Gathering","Information Understanding",
+					"Verifying","Outlining","Drafting","Finalizaing",
+					"Team Meeting","Coach Meeting","Stakeholder Meeting"
+				));
 		
-		LCstepEffortCategories = new ArrayList<ArrayList<Integer>>();
+		// initialize projectToLCSteps
+		projectToLCSteps = new HashMap<>();
+		projectToLCSteps.put(projectNames.get(0), new ArrayList<String>(LCstepNames.subList(16,26)));
+		projectToLCSteps.put(projectNames.get(1), new ArrayList<String>(LCstepNames.subList(0,15))); 
 		
-//		int[][] LCstepEffortCategoriesArray = {
-//				{2,1},{1,3},{2,1},{2,1},{2,1},{1,4},{2,2},{2,2},{1,5},{2,3},{2,4},{2,4},{2,4},
-//				{2,4},{2,4},{2,4},{1,1},{2,1},{2,1},{2,1},{2,6},{2,7},{2,8},{2,1},{2,1},{2,1}};
+		// initialize effortCategoryNames
+		effortCategoryNames = new ArrayList<String>(Arrays.asList("Plans","Deliverables","Interruptions","Defects"));
+		effortCategoryToChoices = new HashMap<>();
 		
-		LCstepEffortCategories.add(new ArrayList<Integer> (Arrays.asList(2,1)));
-		LCstepEffortCategories.add(new ArrayList<Integer> (Arrays.asList(1,3)));
-		LCstepEffortCategories.add(new ArrayList<Integer> (Arrays.asList(2,1)));
-		LCstepEffortCategories.add(new ArrayList<Integer> (Arrays.asList(2,1)));
-		LCstepEffortCategories.add(new ArrayList<Integer> (Arrays.asList(2,1)));
-		LCstepEffortCategories.add(new ArrayList<Integer> (Arrays.asList(1,4)));
-		LCstepEffortCategories.add(new ArrayList<Integer> (Arrays.asList(2,2)));
-		LCstepEffortCategories.add(new ArrayList<Integer> (Arrays.asList(2,2)));
-		LCstepEffortCategories.add(new ArrayList<Integer> (Arrays.asList(1,5)));
-		LCstepEffortCategories.add(new ArrayList<Integer> (Arrays.asList(2,3)));
-		LCstepEffortCategories.add(new ArrayList<Integer> (Arrays.asList(2,4)));
-		LCstepEffortCategories.add(new ArrayList<Integer> (Arrays.asList(2,4)));
-		LCstepEffortCategories.add(new ArrayList<Integer> (Arrays.asList(2,4)));
-		LCstepEffortCategories.add(new ArrayList<Integer> (Arrays.asList(2,4)));
-		LCstepEffortCategories.add(new ArrayList<Integer> (Arrays.asList(2,4)));
-		LCstepEffortCategories.add(new ArrayList<Integer> (Arrays.asList(2,4)));
-		LCstepEffortCategories.add(new ArrayList<Integer> (Arrays.asList(1,1)));
-		LCstepEffortCategories.add(new ArrayList<Integer> (Arrays.asList(2,1)));
-		LCstepEffortCategories.add(new ArrayList<Integer> (Arrays.asList(2,1)));
-		LCstepEffortCategories.add(new ArrayList<Integer> (Arrays.asList(2,1)));
-		LCstepEffortCategories.add(new ArrayList<Integer> (Arrays.asList(2,6)));
-		LCstepEffortCategories.add(new ArrayList<Integer> (Arrays.asList(2,7)));
-		LCstepEffortCategories.add(new ArrayList<Integer> (Arrays.asList(2,8)));
-		LCstepEffortCategories.add(new ArrayList<Integer> (Arrays.asList(2,1)));
-		LCstepEffortCategories.add(new ArrayList<Integer> (Arrays.asList(2,1)));
-		LCstepEffortCategories.add(new ArrayList<Integer> (Arrays.asList(2,1)));
+		// initialize effortCategoryToChoices
+		effortCategoryToChoices.put(effortCategoryNames.get(0), new ArrayList<>(List.of(
+				"Project Plan","Risk Management Plan","Conceptual Design Plan",
+				"Detailed Design Plan","Implementation Plan")));
 		
-		effortCategoryNames = new ArrayList<String>(
-				Arrays.asList("Plans","Deliverables","Interruptions","Defects"));
+		effortCategoryToChoices.put(effortCategoryNames.get(1), new ArrayList<>(List.of(
+				"Conceptual Design","Detailed Design","Test Cases","Solution",
+				"Reflection","Outline","Draft","Report")));
 		
-		effortCategoryChoices = new ArrayList<ArrayList<String>>();
-		effortCategoryChoices.add(new ArrayList<String> (
-				Arrays.asList(
-						"Project Plan","Risk Management Plan","Conceptual Design Plan",
-						"Detailed Design Plan","Implementation Plan")));
-		effortCategoryChoices.add(new ArrayList<String> (
-				Arrays.asList(
-						"Conceptual Design","Detailed Design","Test Cases","Solution",
-						"Reflection","Outline","Draft","Report")));
-		effortCategoryChoices.add(new ArrayList<String> (
-				Arrays.asList("Break","Phone","Teammate","Visitor")));
-		effortCategoryChoices.add(new ArrayList<String> (
-				Arrays.asList(
-						"Not specificed","Documentation","Syntax","Build, Package",
-						"Assignment","Interface","Checking","Data","Function","System","Environment")));
+		effortCategoryToChoices.put(effortCategoryNames.get(2), new ArrayList<>(List.of(
+				"Break","Phone","Teammate","Visitor")));
 		
+		// initialize effortCategoryChoiceNames
 		effortCategoryChoiceNames = new ArrayList<String> ();
-		for (int i=0; i<effortCategoryChoices.size(); i++) {
-			effortCategoryChoiceNames.addAll(effortCategoryChoices.get(i));
+		
+		for (String effortCategory : effortCategoryToChoices.keySet()) {
+			effortCategoryChoiceNames.addAll(effortCategoryToChoices.get(effortCategory));
 		}
 		
+		// initialize LCstepToDefaultEffortCategory
+		LCstepToDefaultEffortCategory = new HashMap<>();
+		
+		int[][] LCstepToDefaultEffortCategoryArray = {
+				{1,0},{0,2},{1,0},{1,0},{1,0},{0,3},{1,1},{1,1},{0,4},{1,2},{1,3},{1,3},{1,3},
+				{1,3},{1,3},{1,3},{0,0},{1,0},{1,0},{1,0},{1,5},{1,6},{1,7},{1,0},{1,0},{1,0}};
+		
+		for (int i=0; i<LCstepNames.size(); i++) {
+			int effortCategoryIdx = LCstepToDefaultEffortCategoryArray[i][0];
+			int deliverableIdx = LCstepToDefaultEffortCategoryArray[i][1];
+			
+			String defaultEffortCategory = effortCategoryNames.get(effortCategoryIdx);
+			String defaultDeliverable = effortCategoryToChoices.get(defaultEffortCategory).get(deliverableIdx);
+			
+			ArrayList<String> effortCategories = new ArrayList<>(List.of(defaultEffortCategory, defaultDeliverable));
+			LCstepToDefaultEffortCategory.put(LCstepNames.get(i), effortCategories);
+		}
+		
+		// TESTING DEFECT LOGS
+		
+		String businessProject = projectNames.get(0);
+		ArrayList<String> businessLCSteps = projectToLCSteps.get(businessProject);
+		
+		DefectLog businessDefectLog1 = new DefectLog();
+		businessDefectLog1.setProjectName(businessProject);
+		
+		DefectLog businessDefectLog2 = new DefectLog();
+		businessDefectLog2.setProjectName(businessProject);
+		businessDefectLog2.setDefectCategory(DefectLog.DefectCategories.get(2));
+		businessDefectLog2.setLCstepInjected(businessLCSteps.get(1));
+		
+		projectDefectLogs.get(businessProject).add(businessDefectLog1);
+		projectDefectLogs.get(businessProject).add(businessDefectLog2);
+			
 	}
-	
 }
 
 

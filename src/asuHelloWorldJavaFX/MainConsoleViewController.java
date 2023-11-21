@@ -29,7 +29,7 @@ public class MainConsoleViewController {
   	  stage.setTitle("Effort Console");
   	  
   	  try {
-  		  scene = new Scene(fxmlLoader.load(), 1000, 1000);
+  		  scene = new Scene(fxmlLoader.load(), 600, 600);
   		  stage.setScene(scene);
       	  stage.show();
   	  }

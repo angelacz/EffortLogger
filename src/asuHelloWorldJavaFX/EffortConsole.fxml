@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- Author: Angela Zhang
-
-Design: EffortConsole.fxml implements the View (in the MVC model)
-for the Effort Console component of EffortLogger.
-
-Design goals: By using the MVC model, the application data (model), UI (view), and logic (control)
-can be implemented separately. We also separate the different components/consoles of EffortLogger,
-since each have distinct functionalities.
-
- -->
-
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
@@ -19,9 +8,9 @@ since each have distinct functionalities.
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="asuHelloWorldJavaFX.EffortConsoleViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="629.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="asuHelloWorldJavaFX.EffortConsoleViewController">
    <children>
-      <Button layoutX="250.0" layoutY="90.0" mnemonicParsing="false" text="Start an activity" onAction="#startTask"/>
+      <Button fx:id="startStopButton" layoutX="394.0" layoutY="92.0" mnemonicParsing="false" text="Start activity" onAction="#toggleClock"/>
       <Label layoutX="228.0" layoutY="14.0" text="Effort Console">
          <font>
             <Font size="24.0" />
@@ -32,22 +21,23 @@ since each have distinct functionalities.
             <Font size="17.0" />
          </font>
       </Label>
-      <Button layoutX="247.0" layoutY="290.0" mnemonicParsing="false" text="Stop this activity" onAction="#endTask"/>
       <Button layoutX="29.0" layoutY="521.0" mnemonicParsing="false" text="Effort Log Editor" />
       <Button layoutX="168.0" layoutY="521.0" mnemonicParsing="false" text="Defect Console" />
       <Button layoutX="346.0" layoutY="521.0" mnemonicParsing="false" text="Log Console" />
       <Button layoutX="479.0" layoutY="521.0" mnemonicParsing="false" text="Definitions" />
-      <ChoiceBox fx:id="projectChoiceBox" layoutX="100.0" layoutY="163.0" prefWidth="150.0" />
-      <ChoiceBox fx:id="effortCategoryChoiceBox" layoutX="100.0" layoutY="241.0" prefWidth="150.0" />
-      <ChoiceBox fx:id="LCstepChoiceBox" layoutX="329.0" layoutY="163.0" prefWidth="150.0" />
-      <ChoiceBox fx:id="deliverableChoiceBox" layoutX="329.0" layoutY="241.0" prefWidth="150.0" />
-      <Text layoutX="100.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Project" wrappingWidth="118.5" />
-      <Text layoutX="329.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lifecycle Step" wrappingWidth="118.5" />
-      <Text layoutX="100.0" layoutY="237.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Effort Category" wrappingWidth="118.5" />
-      <Text layoutX="329.0" layoutY="237.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Deliverable" wrappingWidth="118.5" />
+      <ChoiceBox fx:id="choiceBox1" layoutX="100.0" layoutY="163.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="choiceBox3" layoutX="100.0" layoutY="241.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="choiceBox2" layoutX="329.0" layoutY="163.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="choiceBox4" layoutX="329.0" layoutY="241.0" prefWidth="150.0" />
       <TextArea fx:id="userStoryTextArea" layoutX="98.0" layoutY="426.0" prefHeight="67.0" prefWidth="421.0" />
-      <Text layoutX="96.0" layoutY="422.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Story description" wrappingWidth="143.5" />
+      <Text layoutX="96.0" layoutY="422.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" wrappingWidth="143.5" />
       <TextArea fx:id="keywordsTextArea" layoutX="98.0" layoutY="351.0" prefHeight="43.0" prefWidth="421.0" />
-      <Text layoutX="96.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Keywords" wrappingWidth="143.5" />
+      <Text layoutX="96.0" layoutY="347.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Keywords (separate with commas)" wrappingWidth="205.5" />
+      <Text layoutX="100.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose Log type:" />
+      <ChoiceBox fx:id="logType" layoutX="209.0" layoutY="92.0" prefWidth="150.0" />
+      <Label fx:id="label1" layoutX="99.0" layoutY="148.0" text="Project" />
+      <Label fx:id="label2" layoutX="331.0" layoutY="148.0" text="Lifecycle Step" />
+      <Label fx:id="label3" layoutX="100.0" layoutY="224.0" text="Effort Category" />
+      <Label fx:id="label4" layoutX="328.0" layoutY="224.0" text="Deliverable" />
    </children>
 </AnchorPane>
