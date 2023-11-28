@@ -28,7 +28,7 @@ public class ASUHelloWorldJavaFX extends Application {
     
     public void start(Stage primaryStage) {
     	try {
-			Parent root = FXMLLoader.load(getClass().getResource("MainConsole.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("LoginPage.fxml"));
 			Scene scene = new Scene(root,600,400);
 			primaryStage.setScene(scene);
 			primaryStage.show();
