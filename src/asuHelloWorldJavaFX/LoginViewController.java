@@ -26,6 +26,12 @@ public class LoginViewController {
     private TextField IDField;
     @FXML
     private PasswordField passwordField;
+    
+    @FXML
+    private void initialize() {
+    	// initialize definitions ONCE
+    	Definitions.initializeClassVariables();
+    }
 
     public void submitLogin(ActionEvent event) throws IOException, NoSuchAlgorithmException {
         // Get the user input from ID and Password fields
@@ -44,7 +50,7 @@ public class LoginViewController {
         scene = new Scene(fxmlLoader.load(), 600, 400);
         stage.setTitle("Placeholder");
         MainConsoleViewController control = fxmlLoader.getController();
-        control.setLogin(login);
+        //control.setLogin(login);
         stage.setScene(scene);
         stage.show();
     }

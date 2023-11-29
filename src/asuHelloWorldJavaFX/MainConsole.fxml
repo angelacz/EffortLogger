@@ -25,8 +25,8 @@ since each have distinct functionalities.
          </font>
       </Text>
       <Button layoutX="21.0" layoutY="353.0" mnemonicParsing="false" text="Effort Console" onAction="#goToEffortConsole" />
-      <Button layoutX="136.0" layoutY="353.0" mnemonicParsing="false" text="Defect Console" onAction="#goToEffortConsole" />
-      <Button layoutX="257.0" layoutY="353.0" mnemonicParsing="false" text="Effort Log Editor" onAction="#goToEffortConsole" />
+      <Button layoutX="136.0" layoutY="353.0" mnemonicParsing="false" text="Defect Console" onAction="#goToDefectConsole" />
+      <Button layoutX="257.0" layoutY="353.0" mnemonicParsing="false" text="Effort Log Editor" onAction="#goToEditorConsole" />
       <Button layoutX="379.0" layoutY="353.0" mnemonicParsing="false" text="Log Console" onAction="#goToEffortConsole" />
       <Button layoutX="484.0" layoutY="353.0" mnemonicParsing="false" text="Definitions" onAction="#goToEffortConsole" />
    </children>

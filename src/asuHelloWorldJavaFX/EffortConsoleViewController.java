@@ -16,19 +16,27 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 
 public class EffortConsoleViewController {
+	private Scene scene;
+	private Stage stage;
+	
 	private Log log;
 	private Date startDate;
 	
@@ -55,9 +63,6 @@ public class EffortConsoleViewController {
 	
 	@FXML
 	private void initialize() {
-		// initialize definitions
-		Definitions.initializeClassVariables();
-		
 		// set fixed menu options for: log types, project names (box 1)
 		logType.setItems(logTypeChoices);
 		choiceBox1.setItems(FXCollections.observableArrayList(Definitions.projectNames));
@@ -111,6 +116,7 @@ public class EffortConsoleViewController {
 					else {
 						// set choices for defect logs (box 2)
 						List<DefectLog> defectLogs = Definitions.projectDefectLogs.get(projectName);
+						System.out.println("Num defect logs for project " + projectName + ": "+ defectLogs.size());
 						List<String> defectLogNames = defectLogs.stream().map(l -> l.toString()).collect(Collectors.toList());
 						choiceBox2.setItems(FXCollections.observableArrayList(defectLogNames));
 					}
@@ -270,4 +276,21 @@ public class EffortConsoleViewController {
 		userStoryTextArea.clear();
 		
 	}
+	
+	public void goToMainConsole(ActionEvent event) {
+		
+  	  FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainConsole.fxml"));
+  	  
+  	  stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+  	  stage.setTitle("Main Console");
+  	  
+  	  try {
+  		  scene = new Scene(fxmlLoader.load(), 600, 400);
+  		  stage.setScene(scene);
+      	  stage.show();
+  	  }
+  	  catch (Exception e) {
+  		  e.printStackTrace();
+  	  } 
+    }
 }

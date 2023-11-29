@@ -21,6 +21,7 @@ public class MainConsoleViewController {
 	private Scene scene;
 	private Stage stage;
 	
+	// Effort Console
 	public void goToEffortConsole(ActionEvent event) {
 	
   	  FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EffortConsole.fxml"));
@@ -37,5 +38,42 @@ public class MainConsoleViewController {
   		  e.printStackTrace();
   	  } 
     }
+	
+	// Defect Console
+	public void goToDefectConsole(ActionEvent event) {
+		
+  	  FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("DefectConsole.fxml"));
+  	  
+  	  stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+  	  stage.setTitle("Defect Console");
+  	  
+  	  try {
+  		  scene = new Scene(fxmlLoader.load(), 600, 600);
+  		  stage.setScene(scene);
+      	  stage.show();
+  	  }
+  	  catch (Exception e) {
+  		  e.printStackTrace();
+  	  } 
+    }
+	
+	// Editor Console
+	public void goToEditorConsole(ActionEvent event) {
+		
+  	  FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EditorConsole.fxml"));
+  	  
+  	  stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+  	  stage.setTitle("Defect Console");
+  	  
+  	  try {
+  		  scene = new Scene(fxmlLoader.load(), 600, 600);
+  		  stage.setScene(scene);
+      	  stage.show();
+  	  }
+  	  catch (Exception e) {
+  		  e.printStackTrace();
+  	  } 
+  	}
+	
 
 }

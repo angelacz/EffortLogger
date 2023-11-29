@@ -26,14 +26,18 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class DefectConsoleViewController extends Application {
+	private Scene scene;
+    private Stage stage;
 	
 	private DefectLog defect;
 	private Date startDate;
@@ -52,18 +56,11 @@ public class DefectConsoleViewController extends Application {
     
     @FXML
 	private void initialize() {
-    	
-		// initialize definitions
-		Definitions.initializeClassVariables();
-		
 		// set fixed menu options
 		projectSelect.setItems(FXCollections.observableArrayList(Definitions.projectNames));
-		
 		LCStepInjected.setItems(FXCollections.observableArrayList(Definitions.LCstepNames));
 		LCStepRemoved.setItems(FXCollections.observableArrayList(Definitions.LCstepNames));
-		
 		defectCategory.setItems(FXCollections.observableArrayList(DefectLog.DefectCategories));
-		
 		
 		label2.setText("Defect Category");
 		label3.setText("Lifecycle step injected");
@@ -73,51 +70,28 @@ public class DefectConsoleViewController extends Application {
     }
 		
 		public void submitReport() {
-			// create new Defect Log
-			defect = new DefectLog();
-			((DefectLog) defect).setProjectName(projectSelect.getValue());
-			((DefectLog) defect).setDefectCategory(defectCategory.getValue());
-			((DefectLog) defect).setLCstepInjected(LCStepInjected.getValue());
-			((DefectLog) defect).setLCstepRemoved(LCStepRemoved.getValue());
-
 			// Check required fields
 		    if (projectSelect.getValue() == null) {
 		        System.out.println("Please choose project name!");
 		        return;
 		       }
-		    if ((defectCategory.getValue() == null)) {
-		        System.out.println("Please choose defect!");
-		        return;
-		       }
+		    
+		    // create new Defect Log
+			defect = new DefectLog();
 			
-		    if (LCStepInjected.getValue() == null) {
-		        System.out.println("Please choose the life cycle step where the defect was injected!");
-		        return;
-		       }
-			
-		    if (LCStepRemoved.getValue() == null) {
-		        System.out.println("Please choose the life cycle step where the defect was removed!");
-		        return;
-		       }
+			((DefectLog) defect).setProjectName(projectSelect.getValue());
+			((DefectLog) defect).setDefectCategory(defectCategory.getValue());
+			((DefectLog) defect).setLCstepInjected(LCStepInjected.getValue());
+			((DefectLog) defect).setLCstepRemoved(LCStepRemoved.getValue());
 
 			// set common fields & save
 		    defect.setKeywords(keywordsTextArea.getText());
 		    defect.setUserStory(comments.getText());
-			
-			// save and print out new defect report
-		    if (defect instanceof DefectLog) {
-		    	((DefectLog) defect).save();
-		      }
-		    else {
-		        System.out.println("Defect Log Uploaded!");
-		        System.out.println();
-		        defect.print();
-		       }
 		    
-		    if (defect.getStartDate() == null) {
-		    	defect.setStartDate(startDate);
-		    }
+		    defect.setStartDate(startDate);
 		    defect.setEndDate();
+		    
+		    defect.save();
 			
 			// reset log info
 		    defect = null;
@@ -131,16 +105,30 @@ public class DefectConsoleViewController extends Application {
 
 		    keywordsTextArea.clear();
 		    comments.clear();
-					}
-		
-		//Prints out all Defect Reports
-		public void viewReports() {
-			defect.printAll();
 		}
 		
 		@Override
 		public void start(Stage arg0) throws Exception {
 			// TODO Auto-generated method stub
 			
-		}}
+		}
+		
+		public void goToMainConsole(ActionEvent event) {
+			
+	  	  FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainConsole.fxml"));
+	  	  
+	  	  stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+	  	  stage.setTitle("Main Console");
+	  	  
+	  	  try {
+	  		  scene = new Scene(fxmlLoader.load(), 600, 400);
+	  		  stage.setScene(scene);
+	      	  stage.show();
+	  	  }
+	  	  catch (Exception e) {
+	  		  e.printStackTrace();
+	  	  } 
+	    }
+
+}
 		
