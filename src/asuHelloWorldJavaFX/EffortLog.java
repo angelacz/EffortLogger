@@ -65,6 +65,10 @@ public class EffortLog extends Log {
 		System.out.println("---------------------------------------------------");
 	}
 	
+	public String toString() {
+		return "Effort Log with Start Date " + startDate + " , Lifecycle Step " + LCstep + " , Deliverable " + deliverable;
+	}
+	
 	public static void printProjectEffortLogs(String projectName) {
 		System.out.println("Printing all effort logs for project: " + projectName);
 		for (EffortLog e : Definitions.projectEffortLogs.get(projectName)) {

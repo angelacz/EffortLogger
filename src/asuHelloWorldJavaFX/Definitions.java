@@ -109,19 +109,19 @@ public class Definitions {
 		
 		// TESTING DEFECT LOGS
 		
-		String businessProject = projectNames.get(0);
-		ArrayList<String> businessLCSteps = projectToLCSteps.get(businessProject);
-		
-		DefectLog businessDefectLog1 = new DefectLog();
-		businessDefectLog1.setProjectName(businessProject);
-		
-		DefectLog businessDefectLog2 = new DefectLog();
-		businessDefectLog2.setProjectName(businessProject);
-		businessDefectLog2.setDefectCategory(DefectLog.DefectCategories.get(2));
-		businessDefectLog2.setLCstepInjected(businessLCSteps.get(1));
-		
-		projectDefectLogs.get(businessProject).add(businessDefectLog1);
-		projectDefectLogs.get(businessProject).add(businessDefectLog2);
+//		String businessProject = projectNames.get(0);
+//		ArrayList<String> businessLCSteps = projectToLCSteps.get(businessProject);
+//		
+//		DefectLog businessDefectLog1 = new DefectLog();
+//		businessDefectLog1.setProjectName(businessProject);
+//		
+//		DefectLog businessDefectLog2 = new DefectLog();
+//		businessDefectLog2.setProjectName(businessProject);
+//		businessDefectLog2.setDefectCategory(DefectLog.DefectCategories.get(2));
+//		businessDefectLog2.setLCstepInjected(businessLCSteps.get(1));
+//		
+//		projectDefectLogs.get(businessProject).add(businessDefectLog1);
+//		projectDefectLogs.get(businessProject).add(businessDefectLog2);
 			
 	}
 }

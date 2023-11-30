@@ -60,10 +60,10 @@ public class MainConsoleViewController {
 	// Editor Console
 	public void goToEditorConsole(ActionEvent event) {
 		
-  	  FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EditorConsole.fxml"));
+  	  FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EffortConsoleEditor.fxml"));
   	  
   	  stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-  	  stage.setTitle("Defect Console");
+  	  stage.setTitle("Effort Log Editor");
   	  
   	  try {
   		  scene = new Scene(fxmlLoader.load(), 600, 600);

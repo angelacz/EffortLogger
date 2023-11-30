@@ -116,7 +116,6 @@ public class EffortConsoleViewController {
 					else {
 						// set choices for defect logs (box 2)
 						List<DefectLog> defectLogs = Definitions.projectDefectLogs.get(projectName);
-						System.out.println("Num defect logs for project " + projectName + ": "+ defectLogs.size());
 						List<String> defectLogNames = defectLogs.stream().map(l -> l.toString()).collect(Collectors.toList());
 						choiceBox2.setItems(FXCollections.observableArrayList(defectLogNames));
 					}
